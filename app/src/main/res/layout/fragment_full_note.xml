@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@drawable/note_background"
     android:id="@+id/full_note"
-    tools:context=".FullNoteFragment">
+    tools:context="ui.FullNoteFragment">
 
     <TextView
         android:layout_width="match_parent"

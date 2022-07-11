@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
-import com.example.mynotes.FullNoteFragment;
 import com.example.mynotes.R;
 
 public class NotesActivity extends AppCompatActivity {
