@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,7 +34,7 @@ public class MainFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String NOTE = "note";
-    private int currentNote = 0;
+    private Note currentNote = new Note();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -76,47 +77,54 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Button newNoteBtn = getActivity().findViewById(R.id.new_note_btn);
         if(savedInstanceState != null){
-            currentNote = savedInstanceState.getInt(NOTE,0);
+            currentNote = savedInstanceState.getParcelable(NOTE);
         }
         notesListShow(view);
 
         if(isLandscape()){
             showFullNoteLandscape(currentNote);
+        }else{
+            newNoteBtn.setVisibility(View.VISIBLE);
         }
+
+
     }
 
 
     private void notesListShow(View view){
         LinearLayout linearLayout = (LinearLayout) view;
-        ArrayList<Note> notes = new ArrayList<>();
-        for (int i = 0; i < getResources().getTextArray(R.array.notes_title).length; i++) {
+
+        if(Note.getAll().size() != 0){
+            for (int i = 0; i < Note.getAll().size(); i++) {
+                TextView textView = new TextView(getContext());
+                textView.setTextSize(26);
+                textView.setTextColor(getResources().getColor(R.color.black));
+                textView.setText(Note.getNote(i).getNoteTitle());
+                final int index = i;
+                textView.setOnClickListener(v -> {
+                    if (isLandscape()) {
+                        showFullNoteLandscape(Note.getNote(index));
+                    }else {
+                        showFullNote(Note.getNote(index));
+                    }
+                    currentNote = Note.getNote(index);
+                });
+                linearLayout.addView(textView);
+            }
+
+        }else {
             TextView textView = new TextView(getContext());
-            Note note = new Note();
-            note.setNoteTitle(getResources().getTextArray(R.array.notes_title)[i].toString());
-            note.setNoteText(getResources().getTextArray(R.array.notes_text)[i].toString());
-            note.setNoteCompDate(getResources().getTextArray(R.array.notes_date)[i].toString());
-            notes.add(note);
-            textView.setText(note.getNoteTitle());
-            textView.setTextSize(30);
+            textView.setTextSize(26);
             textView.setTextColor(getResources().getColor(R.color.black));
+            textView.setText("Список заметок пуст");
             linearLayout.addView(textView);
-            final int index = i;
-            textView.setOnClickListener(v -> {
-                currentNote = index;
-                if (isLandscape()) {
-                    showFullNoteLandscape(index);
-                }else{
-                    showFullNote(index);
-                }
-            });
         }
-        Note.saveAll(notes);
     }
 
-    private void showFullNoteLandscape(int index) {
-        FullNoteFragment fullNoteFragment = FullNoteFragment.newInstance(index);
+    private void showFullNoteLandscape(Note note) {
+        FullNoteFragment fullNoteFragment = FullNoteFragment.newInstance(note);
 
         requireActivity()
                 .getSupportFragmentManager()
@@ -126,8 +134,8 @@ public class MainFragment extends Fragment {
                 .commit();
     }
 
-    private void showFullNote(int index){
-        FullNoteFragment fullNoteFragment = FullNoteFragment.newInstance(index);
+    private void showFullNote(Note note){
+        FullNoteFragment fullNoteFragment = FullNoteFragment.newInstance(note);
 
         requireActivity()
                 .getSupportFragmentManager()
@@ -144,7 +152,7 @@ public class MainFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt(NOTE, currentNote);
+        outState.putParcelable(NOTE, currentNote);
         super.onSaveInstanceState(outState);
     }
 }

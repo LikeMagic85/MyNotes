@@ -1,5 +1,6 @@
 package ui;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.mynotes.R;
@@ -74,26 +77,57 @@ public class FullNoteFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle arguments = getArguments();
+        Button newNoteBtn = getActivity().findViewById(R.id.new_note_btn);
         if(arguments != null){
-            int index = arguments.getInt(ARG_INDEX);
+            Note note = arguments.getParcelable(ARG_INDEX);
             TextView title = requireActivity().findViewById(R.id.full_note_title);
             TextView text = requireActivity().findViewById(R.id.full_note_text);
             TextView date = requireActivity().findViewById(R.id.full_note_date);
             if(title != null && text != null && date != null){
-            title.setText(Note.getAll().get(index).getNoteTitle());
-            text.setText(Note.getAll().get(index).getNoteText());
-            date.setText(Note.getAll().get(index).getNoteCompDate());
+            title.setText(note.getNoteTitle());
+            text.setText(note.getNoteText());
+            date.setText(note.getNoteCompDate());
             }
         }
-
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            newNoteBtn.setVisibility(View.INVISIBLE);
+        }
+        Button delBtn = getActivity().findViewById(R.id.del_btn);
+        if(delBtn != null) {
+            delBtn.setOnClickListener(v -> {
+                Note note = arguments.getParcelable(ARG_INDEX);
+                getActivity().getSupportFragmentManager().popBackStack();
+                deleteNote(note);
+            });
+        }
+        Button editBtn = getActivity().findViewById(R.id.edit_btn);
+        if(editBtn != null) {
+            editBtn.setOnClickListener(v -> {
+                Note note = arguments.getParcelable(ARG_INDEX);
+                editNote(note);
+            });
+        }
     }
 
 
-    public static FullNoteFragment newInstance(int index){
+    public static FullNoteFragment newInstance(Note note){
         FullNoteFragment fragment = new FullNoteFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_INDEX, index);
+        args.putParcelable(ARG_INDEX, note);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private void deleteNote(Note note){
+        Note.getAll().remove(note);
+    }
+
+    private void editNote(Note note){
+        EditFragment fragment = EditFragment.editFragmentNote(note);
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.notes_container, fragment)
+                .addToBackStack("")
+                .commit();
     }
 }

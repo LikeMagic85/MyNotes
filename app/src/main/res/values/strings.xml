@@ -7,9 +7,12 @@
     <string name="note_completed_date">Дата</string>
     <string name="note_text">Текст заметки</string>
     <string name="save_button_text">Сохранить</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="full_note_title">Заметка</string>
+    <string name="comp_date">Срок выполнения</string>
+    <string name="save_btn">Сохранить</string>
+    <string name="new_note_btn">Новая заметка</string>
+    <string name="edit_button_text">Редактировать</string>
+    <string name="del_btn_text">Удалить</string>
 
     <string-array name="notes_title">
         <item>Заметка 1</item>
@@ -34,5 +37,8 @@
         <item>Дата заметки 4</item>
         <item>Дата заметки 5</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="edit_note_main_title">Редактирование заметки</string>
 
 </resources>

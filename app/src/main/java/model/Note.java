@@ -1,12 +1,15 @@
 package model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Note {
-    public static ArrayList<Note> notesList;
+public class Note implements Parcelable {
+    public static ArrayList<Note> notesList = new ArrayList<>(10);
     private String noteTitle;
     private String noteText;
     private String noteCompDate;
@@ -18,6 +21,24 @@ public class Note {
     }
 
     public Note(){};
+
+    protected Note(Parcel in) {
+        noteTitle = in.readString();
+        noteText = in.readString();
+        noteCompDate = in.readString();
+    }
+
+    public static final Creator<Note> CREATOR = new Creator<Note>() {
+        @Override
+        public Note createFromParcel(Parcel in) {
+            return new Note(in);
+        }
+
+        @Override
+        public Note[] newArray(int size) {
+            return new Note[size];
+        }
+    };
 
     public String getNoteTitle() {
         return noteTitle;
@@ -43,11 +64,27 @@ public class Note {
         this.noteCompDate = noteCompDate;
     }
 
-    public static void saveAll(ArrayList<Note> list){
-        notesList = list;
+    public static void saveNote(Note note){
+        notesList.add(note);
     }
 
     public static ArrayList<Note>  getAll(){
         return notesList;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(noteTitle);
+        parcel.writeString(noteText);
+        parcel.writeString(noteCompDate);
+    }
+
+    public static Note getNote(int index){
+        return notesList.get(index);
+    };
 }
