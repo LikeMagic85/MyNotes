@@ -2,9 +2,12 @@
 <resources>
     <dimen name="main_activity_padding">20dp</dimen>
     <dimen name="logo_text_size">36sp</dimen>
-    <dimen name="line_height">3dp</dimen>
+    <dimen name="line_height">2dp</dimen>
     <dimen name="default_margin_bottom">10dp</dimen>
     <dimen name="new_note_text_size">30sp</dimen>
     <dimen name="title_text_size">28sp</dimen>
     <dimen name="note_text_size">20sp</dimen>
+    <dimen name="full_note_title_size">26sp</dimen>
+    <dimen name="full_note_text_size">20sp</dimen>
+    <dimen name="default_elevation">3dp</dimen>
 </resources>

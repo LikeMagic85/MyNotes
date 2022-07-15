@@ -8,8 +8,7 @@
     android:background="@drawable/note_background"
     android:elevation="@dimen/default_elevation"
     android:padding="@dimen/main_activity_padding"
-    android:id="@+id/full_note"
-    tools:context="ui.FullNoteFragment">
+    tools:context="ui.EditFragment">
 
     <TextView
         android:id="@+id/title"
@@ -17,9 +16,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/default_margin_bottom"
         android:gravity="center|top"
-        android:text="@string/full_note_title"
+        android:text="@string/edit_note_main_title"
         android:textColor="@color/black"
-        android:textSize="@dimen/logo_text_size"
+        android:textSize="20sp"
         app:layout_constraintTop_toTopOf="parent"
         />
 
@@ -39,27 +38,27 @@
         app:layout_constraintBottom_toTopOf="@id/btn"
         app:layout_constraintTop_toBottomOf="@id/line">
 
-        <TextView
-            android:id="@+id/full_note_title"
+        <EditText
+            android:id="@+id/edit_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/default_margin_bottom"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="@dimen/full_note_title_size" />
+            android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/full_note_text"
+        <EditText
+            android:id="@+id/edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/default_margin_bottom"
-            android:textSize="@dimen/full_note_text_size" />
+            android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/full_note_date"
+        <EditText
+            android:id="@+id/edit_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/full_note_text_size" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -71,18 +70,11 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
-            android:id="@+id/edit_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:text="@string/edit_button_text" />
-
-        <Button
-            android:id="@+id/del_btn"
+            android:id="@+id/edit_save_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:text="@string/del_btn_text" />
+            android:text="@string/save_button_text" />
     </FrameLayout>
 
 

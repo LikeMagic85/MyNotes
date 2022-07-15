@@ -7,6 +7,13 @@
     android:padding="@dimen/main_activity_padding"
     tools:context="ui.NotesActivity">
 
+    <Button
+        android:id="@+id/new_note_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|end|bottom"
+        android:text="@string/new_note_btn"/>
+
     <LinearLayout
         android:id="@+id/notes_container"
         android:layout_width="match_parent"
@@ -25,7 +32,8 @@
         <View
             android:layout_width="wrap_content"
             android:layout_height="@dimen/line_height"
-            android:background="@color/color_grey" />
+            android:background="@color/color_grey"
+            android:layout_marginBottom="@dimen/default_margin_bottom"/>
 
     </LinearLayout>
 
