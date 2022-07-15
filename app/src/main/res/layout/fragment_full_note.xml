@@ -8,6 +8,7 @@
     android:background="@drawable/note_background"
     android:elevation="@dimen/default_elevation"
     android:padding="@dimen/main_activity_padding"
+    android:id="@+id/full_note"
     tools:context="ui.FullNoteFragment">
 
     <TextView

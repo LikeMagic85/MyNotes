@@ -1,5 +1,6 @@
 package ui;
 
+
 import android.content.res.Configuration;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
 import android.widget.TextView;
 
 import com.example.mynotes.R;
@@ -77,9 +79,13 @@ public class FullNoteFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle arguments = getArguments();
+
         Button newNoteBtn = getActivity().findViewById(R.id.new_note_btn);
         if(arguments != null){
             Note note = arguments.getParcelable(ARG_INDEX);
+
+        if(arguments != null){
+            int index = arguments.getInt(ARG_INDEX);
             TextView title = requireActivity().findViewById(R.id.full_note_title);
             TextView text = requireActivity().findViewById(R.id.full_note_text);
             TextView date = requireActivity().findViewById(R.id.full_note_date);
@@ -129,5 +135,21 @@ public class FullNoteFragment extends Fragment {
                 .replace(R.id.notes_container, fragment)
                 .addToBackStack("")
                 .commit();
+    }
+            title.setText(Note.getAll().get(index).getNoteTitle());
+            text.setText(Note.getAll().get(index).getNoteText());
+            date.setText(Note.getAll().get(index).getNoteCompDate());
+            }
+        }
+
+    }
+
+
+    public static FullNoteFragment newInstance(int index){
+        FullNoteFragment fragment = new FullNoteFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_INDEX, index);
+        fragment.setArguments(args);
+        return fragment;
     }
 }
