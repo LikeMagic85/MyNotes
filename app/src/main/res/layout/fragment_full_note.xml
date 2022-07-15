@@ -8,7 +8,6 @@
     android:background="@drawable/note_background"
     android:elevation="@dimen/default_elevation"
     android:padding="@dimen/main_activity_padding"
-    android:id="@+id/full_note"
     tools:context="ui.FullNoteFragment">
 
     <TextView
@@ -36,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/btn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/line">
 
         <TextView
@@ -62,28 +61,6 @@
             android:textSize="@dimen/full_note_text_size" />
 
     </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <Button
-            android:id="@+id/edit_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:text="@string/edit_button_text" />
-
-        <Button
-            android:id="@+id/del_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="@string/del_btn_text" />
-    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

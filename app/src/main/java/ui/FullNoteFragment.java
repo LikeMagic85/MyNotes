@@ -9,10 +9,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
 import android.widget.TextView;
 
@@ -77,15 +79,13 @@ public class FullNoteFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
         Bundle arguments = getArguments();
 
         Button newNoteBtn = getActivity().findViewById(R.id.new_note_btn);
-        if(arguments != null){
+        if(arguments != null) {
             Note note = arguments.getParcelable(ARG_INDEX);
-
-        if(arguments != null){
-            int index = arguments.getInt(ARG_INDEX);
             TextView title = requireActivity().findViewById(R.id.full_note_title);
             TextView text = requireActivity().findViewById(R.id.full_note_text);
             TextView date = requireActivity().findViewById(R.id.full_note_date);
@@ -97,24 +97,37 @@ public class FullNoteFragment extends Fragment {
         }
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             newNoteBtn.setVisibility(View.INVISIBLE);
-        }
-        Button delBtn = getActivity().findViewById(R.id.del_btn);
-        if(delBtn != null) {
-            delBtn.setOnClickListener(v -> {
-                Note note = arguments.getParcelable(ARG_INDEX);
-                getActivity().getSupportFragmentManager().popBackStack();
-                deleteNote(note);
-            });
-        }
-        Button editBtn = getActivity().findViewById(R.id.edit_btn);
-        if(editBtn != null) {
-            editBtn.setOnClickListener(v -> {
-                Note note = arguments.getParcelable(ARG_INDEX);
-                editNote(note);
-            });
+            if(savedInstanceState == null){
+                setHasOptionsMenu(true);
+            }
         }
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        requireActivity().getMenuInflater().inflate(R.menu.note_menu, menu);
+        MenuItem itemAbout = menu.findItem(R.id.item_about).setVisible(false);
+        MenuItem exit = menu.findItem(R.id.exit).setVisible(false);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        Bundle arguments = getArguments();
+        Note note = arguments.getParcelable(ARG_INDEX);
+        switch (id){
+            case R.id.edit_item:
+                editNote(note);
+                break;
+
+            case R.id.del_item:
+                deleteNote(note);
+                requireActivity().getSupportFragmentManager().popBackStack();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     public static FullNoteFragment newInstance(Note note){
         FullNoteFragment fragment = new FullNoteFragment();
@@ -136,20 +149,5 @@ public class FullNoteFragment extends Fragment {
                 .addToBackStack("")
                 .commit();
     }
-            title.setText(Note.getAll().get(index).getNoteTitle());
-            text.setText(Note.getAll().get(index).getNoteText());
-            date.setText(Note.getAll().get(index).getNoteCompDate());
-            }
-        }
 
-    }
-
-
-    public static FullNoteFragment newInstance(int index){
-        FullNoteFragment fragment = new FullNoteFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_INDEX, index);
-        fragment.setArguments(args);
-        return fragment;
-    }
 }
