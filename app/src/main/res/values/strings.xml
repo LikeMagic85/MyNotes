@@ -13,32 +13,12 @@
     <string name="new_note_btn">Новая заметка</string>
     <string name="edit_button_text">Редактировать</string>
     <string name="del_btn_text">Удалить</string>
-
-    <string-array name="notes_title">
-        <item>Заметка 1</item>
-        <item>Заметка 2</item>
-        <item>Заметка 3</item>
-        <item>Заметка 4</item>
-        <item>Заметка 5</item>
-    </string-array>
-
-    <string-array name="notes_text">
-        <item>Тескт заметки 1</item>
-        <item>Тескт заметки 2</item>
-        <item>Тескт заметки 3</item>
-        <item>Тескт заметки 4</item>
-        <item>Тескт заметки 5</item>
-    </string-array>
-
-    <string-array name="notes_date">
-        <item>Дата заметки 1</item>
-        <item>Дата заметки 2</item>
-        <item>Дата заметки 3</item>
-        <item>Дата заметки 4</item>
-        <item>Дата заметки 5</item>
-    </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="about_text">О программе</string>
+    <string name="back_text">Назад</string>
+    <string name="about">О программе</string>
+    <string name="exit">Выход</string>
     <string name="edit_note_main_title">Редактирование заметки</string>
 
 </resources>
