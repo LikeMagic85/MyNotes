@@ -16,8 +16,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mynotes.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -136,6 +138,7 @@ public class MainFragment extends Fragment {
                     switch (menuItem.getItemId()){
                         case R.id.del_item:
                             Note.getAll().remove(index);
+                            Snackbar.make(ll, "Заметка удалена", Snackbar.LENGTH_LONG).show();
                             ll.removeAllViews();
                             notesListShow(ll);
                             break;

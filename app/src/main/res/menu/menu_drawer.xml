@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/login"
+        android:icon="@drawable/ic_baseline_emoji_emotions_24"
+        android:title="@string/login_text" />
+    <item
         android:id="@+id/drawer_about"
-        android:title="@string/about_text"
-        android:icon="@drawable/ic_baseline_announcement_24"/>
+        android:icon="@drawable/ic_baseline_announcement_24"
+        android:title="@string/about_text" />
 
     <item
         android:id="@+id/drawer_exit"
-        android:title="@string/exit"
-        android:icon="@drawable/ic_baseline_exit_to_app_24"/>
+        android:icon="@drawable/ic_baseline_exit_to_app_24"
+        android:title="@string/exit" />
 
 </menu>

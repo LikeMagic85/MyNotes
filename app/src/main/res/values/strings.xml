@@ -20,5 +20,8 @@
     <string name="about">О программе</string>
     <string name="exit">Выход</string>
     <string name="edit_note_main_title">Редактирование заметки</string>
+    <string name="login_text">Вход</string>
+    <string name="login_input_text">Ввидите имя</string>
+    <string name="user">USER</string>
 
 </resources>

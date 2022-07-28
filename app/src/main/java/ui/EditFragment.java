@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mynotes.R;
 
@@ -92,6 +93,7 @@ public class EditFragment extends Fragment {
                 note.setNoteText(text.getText().toString());
                 note.setNoteCompDate(date.getText().toString());
                 requireActivity().getSupportFragmentManager().popBackStack();
+                Toast.makeText(getContext(), "Сохранено", Toast.LENGTH_LONG).show();
             });
         }
 

@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mynotes.R;
 
@@ -124,6 +125,7 @@ public class FullNoteFragment extends Fragment {
             case R.id.del_item:
                 deleteNote(note);
                 requireActivity().getSupportFragmentManager().popBackStack();
+                Toast.makeText(getContext(), "Заметка удалена", Toast.LENGTH_LONG).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
