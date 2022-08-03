@@ -1,0 +1,25 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/main_activity_padding"
+    tools:context="ui.AboutFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about_text"
+        android:textColor="@color/black"
+        android:textSize="@dimen/new_note_text_size"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/about_back"
+        android:text="@string/back_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"/>
+
+
+</FrameLayout>

@@ -9,13 +9,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mynotes.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -103,6 +107,7 @@ public class MainFragment extends Fragment {
                 textView.setTextColor(getResources().getColor(R.color.black));
                 textView.setText(Note.getNote(i).getNoteTitle());
                 final int index = i;
+                intiPopupMenu(linearLayout, textView, index);
                 textView.setOnClickListener(v -> {
                     if (isLandscape()) {
                         showFullNoteLandscape(Note.getNote(index));
@@ -121,6 +126,29 @@ public class MainFragment extends Fragment {
             textView.setText("Список заметок пуст");
             linearLayout.addView(textView);
         }
+    }
+
+    private void intiPopupMenu(LinearLayout ll, TextView tv, int index){
+        tv.setOnLongClickListener(v ->{
+            PopupMenu popupMenu = new PopupMenu(requireActivity(), tv);
+            requireActivity().getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    switch (menuItem.getItemId()){
+                        case R.id.del_item:
+                            Note.getAll().remove(index);
+                            Snackbar.make(ll, "Заметка удалена", Snackbar.LENGTH_LONG).show();
+                            ll.removeAllViews();
+                            notesListShow(ll);
+                            break;
+                    }
+                    return true;
+                }
+            });
+            popupMenu.show();
+            return true;
+        });
     }
 
     private void showFullNoteLandscape(Note note) {
