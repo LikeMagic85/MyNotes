@@ -39,11 +39,11 @@ public class NotesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notes);
         mainInit();
         initDrawer(isPortrait());
-        if(savedInstanceState != null){
+        /*if(savedInstanceState != null){
             if(isPortrait()){
-                /*userInfo.setText(savedInstanceState.getString("USER_NAME"));*/
+                userInfo.setText(savedInstanceState.getString("USER_NAME"));
             }
-        }
+        }*/
     }
 
 
@@ -82,7 +82,7 @@ public class NotesActivity extends AppCompatActivity {
     }
 
     private void mainInit(){
-        MainFragment mainFragment = new MainFragment();
+        ListFragment mainFragment = new ListFragment();
         Button newNoteBtn = findViewById(R.id.new_note_btn);
 
         if(!isPortrait()){
