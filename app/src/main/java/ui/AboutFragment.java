@@ -31,9 +31,5 @@ public class AboutFragment extends Fragment {
         aboutBackBtn.setOnClickListener(v ->{
             requireActivity().getSupportFragmentManager().popBackStack();
         });
-
-        Button newNoteBtn = getActivity().findViewById(R.id.new_note_btn);
-        if(newNoteBtn != null){
-            newNoteBtn.setVisibility(View.INVISIBLE);}
     }
 }

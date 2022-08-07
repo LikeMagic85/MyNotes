@@ -28,7 +28,9 @@ import android.widget.TextView;
 import com.example.mynotes.R;
 import com.google.android.material.navigation.NavigationView;
 
+import model.ListAdapter;
 import model.LoginDialog;
+import model.Note;
 
 public class NotesActivity extends AppCompatActivity {
 
@@ -39,51 +41,11 @@ public class NotesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notes);
         mainInit();
         initDrawer(isPortrait());
-        /*if(savedInstanceState != null){
-            if(isPortrait()){
-                userInfo.setText(savedInstanceState.getString("USER_NAME"));
-            }
-        }*/
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        switch(id) {
-            case R.id.item_about:
-            Button newNoteBtn = findViewById(R.id.new_note_btn);
-            if(newNoteBtn != null){
-            newNoteBtn.setVisibility(View.INVISIBLE);}
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .addToBackStack("")
-                    .replace(R.id.notes_container, new AboutFragment())
-                    .commit();
-            break;
-
-            case R.id.exit:
-                new AlertDialog.Builder(NotesActivity.this).setTitle("Выход").setMessage("Вы желаете выйти?").setPositiveButton("Дa", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        System.exit(0);
-                    }
-                }).setNegativeButton("Нет", null).show();
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     private void mainInit(){
         ListFragment mainFragment = new ListFragment();
-        Button newNoteBtn = findViewById(R.id.new_note_btn);
 
         if(!isPortrait()){
             getSupportFragmentManager()
@@ -95,15 +57,6 @@ public class NotesActivity extends AppCompatActivity {
                     .beginTransaction()
                     .replace(R.id.notes_container, mainFragment)
                     .commit();
-            newNoteBtn.setOnClickListener(v -> {
-                NewNoteFragment fragment = NewNoteFragment.createNewNote();
-                newNoteBtn.setVisibility(View.INVISIBLE);
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.notes_container, fragment)
-                        .addToBackStack("")
-                        .commit();
-            });
         }
     }
 

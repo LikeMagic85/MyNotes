@@ -1,11 +1,14 @@
 package model;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynotes.R;
@@ -16,13 +19,27 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     private List<Note> notes = Note.getAll();
     private OnItemClickListener itemClickListener;
+    private Fragment fragment;
+    private int menuPosition;
 
     public void setItemClickListener(OnItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
 
-    public ListAdapter(List<Note> notes){
+    public ListAdapter(List<Note> notes, Fragment fragment){
         this.notes = notes;
+        this.fragment = fragment;
+    }
+
+    private void registerContextMenu(View itemView){
+        if (fragment != null){
+            fragment.registerForContextMenu(itemView);
+        }
+
+    }
+
+    public int getMenuPosition() {
+        return menuPosition;
     }
 
     @NonNull
@@ -55,12 +72,22 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             cardTitle = itemView.findViewById(R.id.card_title);
             cardText = itemView.findViewById(R.id.card_text);
             cardDate = itemView.findViewById(R.id.card_date);
+            registerContextMenu(itemView);
 
             cardTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                      itemClickListener.onItemClick(view, position);
+                }
+            });
+            cardTitle.setOnLongClickListener(new View.OnLongClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.N)
+                @Override
+                public boolean onLongClick(View view) {
+                    menuPosition = getLayoutPosition();
+                    itemView.showContextMenu(200,100);
+                    return true;
                 }
             });
         }
@@ -72,6 +99,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 cardDate.setText((notes.get(position).getNoteCompDate()));
             }
         }
+
     }
 
 }

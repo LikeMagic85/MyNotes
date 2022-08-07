@@ -81,7 +81,6 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button newNoteBtn = getActivity().findViewById(R.id.new_note_btn);
         if(savedInstanceState != null){
             currentNote = savedInstanceState.getParcelable(NOTE);
         }
@@ -90,7 +89,7 @@ public class MainFragment extends Fragment {
         if(isLandscape()){
             showFullNoteLandscape(currentNote);
         }else{
-            newNoteBtn.setVisibility(View.VISIBLE);
+
         }
 
 
