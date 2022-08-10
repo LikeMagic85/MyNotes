@@ -15,6 +15,7 @@ import androidx.lifecycle.LifecycleOwner;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -41,6 +42,7 @@ public class NotesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notes);
         mainInit();
         initDrawer(isPortrait());
+
     }
 
 

@@ -1,9 +1,14 @@
 package ui;
 
+import static model.Note.notesList;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.datastore.core.DataStore;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,8 +19,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.mynotes.R;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.prefs.Preferences;
 
 import model.ListAdapter;
 import model.Note;
@@ -24,7 +31,8 @@ import model.Note;
 public class NewNoteFragment extends Fragment {
 
     ListAdapter adapter = new ListAdapter(Note.getAll(), this);
-    RecyclerView recyclerView;
+    private SharedPreferences sharedPreferences;
+    public static final String KEY = "KEY";
 
     public NewNoteFragment() {
         // Required empty public constructor
@@ -59,6 +67,9 @@ public class NewNoteFragment extends Fragment {
             Note.saveNote(note);
             getActivity().getSupportFragmentManager().popBackStack();
             adapter.notifyItemInserted(Note.getAll().size() - 1);
+            String jsonAdd = new GsonBuilder().create().toJson(Note.getAll());
+            sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+            sharedPreferences.edit().putString(KEY, jsonAdd).apply();
         });
 
     }

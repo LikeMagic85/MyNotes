@@ -13,11 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynotes.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
-    private List<Note> notes = Note.getAll();
+    private List<Note> notes;
     private OnItemClickListener itemClickListener;
     private Fragment fragment;
     private int menuPosition;
@@ -101,5 +102,17 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         }
 
     }
+
+    public void setData(ArrayList<Note> notes){
+
+            Note note = new Note();
+            Note.saveNote(note);
+            this.notes.get(getMenuPosition()).setNoteTitle(notes.get(getMenuPosition()).getNoteTitle());
+            this.notes.get(getMenuPosition()).setNoteText(notes.get(getMenuPosition()).getNoteText());
+            this.notes.get(getMenuPosition()).setNoteCompDate(notes.get(getMenuPosition()).getNoteCompDate());
+
+
+        notifyDataSetChanged();
+    };
 
 }

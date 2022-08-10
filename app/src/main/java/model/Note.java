@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Note implements Parcelable {
-    public static ArrayList<Note> notesList = new ArrayList<>(10);
+    public static ArrayList<Note> notesList = new ArrayList<>();
     private String noteTitle;
     private String noteText;
     private String noteCompDate;

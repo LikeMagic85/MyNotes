@@ -1,5 +1,7 @@
 package ui;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,57 +17,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mynotes.R;
+import com.google.gson.GsonBuilder;
 
+import model.ListAdapter;
 import model.Note;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EditFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class EditFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     static final String ARG_INDEX = "index";
+    public static final String KEY = "KEY";
+    SharedPreferences sharedPreferences;
 
 
     public EditFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EditFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static EditFragment newInstance(String param1, String param2) {
-        EditFragment fragment = new EditFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -94,6 +68,11 @@ public class EditFragment extends Fragment {
                 note.setNoteCompDate(date.getText().toString());
                 requireActivity().getSupportFragmentManager().popBackStack();
                 Toast.makeText(getContext(), "Сохранено", Toast.LENGTH_LONG).show();
+                ListAdapter listAdapter = new ListAdapter(Note.getAll(), this);
+                listAdapter.notifyItemChanged(listAdapter.getMenuPosition());
+                String jsonEdit = new GsonBuilder().create().toJson(Note.getAll());
+                sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+                sharedPreferences.edit().putString(KEY, jsonEdit).apply();
             });
         }
 

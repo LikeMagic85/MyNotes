@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id "com.google.protobuf" version "0.8.12"
 }
 
 android {
@@ -31,7 +32,9 @@ android {
 }
 
 dependencies {
-
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    implementation  "com.google.protobuf:protobuf-javalite:3.10.0"
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

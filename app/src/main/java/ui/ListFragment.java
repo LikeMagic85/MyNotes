@@ -1,5 +1,7 @@
 package ui;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,7 +22,11 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.mynotes.R;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.ListAdapter;
@@ -32,6 +38,8 @@ public class ListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ListAdapter listAdapter;
+    private SharedPreferences sharedPreferences;
+    public static final String KEY = "KEY";
 
     public ListFragment() {
         // Required empty public constructor
@@ -87,6 +95,19 @@ public class ListFragment extends Fragment {
     private void initRecyclerView(RecyclerView recyclerView, List<Note> notes){
         listAdapter = new ListAdapter(notes, this);
         recyclerView.setAdapter(listAdapter);
+
+        sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+
+        String saveData = sharedPreferences.getString(KEY, null);
+
+        try {
+            Type type = new TypeToken<List<Note>>(){}.getType();
+            new GsonBuilder().create().fromJson(saveData, type);
+            listAdapter.setData(new GsonBuilder().create().fromJson(saveData, type));
+        } catch (Exception e){
+            Toast.makeText(getContext(),"Список заметок пуст", Toast.LENGTH_LONG).show();
+        }
+
         listAdapter.setItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -129,5 +150,10 @@ public class ListFragment extends Fragment {
     private void delNote(int position){
 
         Note.getAll().remove(position);
+        listAdapter.notifyItemRemoved(position);
+
+        sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        String jsonDel = new GsonBuilder().create().toJson(Note.getAll());
+        sharedPreferences.edit().putString(KEY, jsonDel).apply();
     }
 }
